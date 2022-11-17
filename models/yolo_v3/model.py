@@ -40,11 +40,12 @@ class YoloV3:
         return load_model(f'{path}')
 
     def load_image_pixels(self, path):
-        # Carga de la imagen con el tamaño requerido por la red
-        self.image_path = path
-        image = keras_image.load_img(path, target_size=(self.net_w, self.net_h))
         # Obtiene el tamaño de la img
-        self.image_w, self.image_h = image.size
+        self.image_path = path
+        original_image = keras_image.load_img(path)
+        # Carga de la imagen con el tamaño requerido por la red
+        self.image_w, self.image_h = original_image.size
+        image = keras_image.load_img(path, target_size=(self.net_w, self.net_h))
         # transformo en array
         image = keras_image.img_to_array(image)
         # normalizado de los pixels
@@ -164,12 +165,6 @@ class YoloV3:
                     self.v_boxes.append(box)
                     self.v_labels.append(self.labels[i])
                     self.v_scores.append(box.classes[i] * 100)
-                    print(box.xmin)
-                    print(box.ymin)
-                    print(box.xmax)
-                    print(box.ymax)
-                    print(self.labels[i])
-                    print(box.classes[i] * 100)
 
     def draw_boxes(self):
         # carga de la imagen
