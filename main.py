@@ -11,3 +11,6 @@ def run_prediction(input_img):
 if __name__ == "__main__":
     input_img = f'{os.getcwd()}/inputs/Zebra.jpg'
     run_prediction(input_img)
+
+
+#prueba
